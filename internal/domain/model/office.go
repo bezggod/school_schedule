@@ -1,16 +1,18 @@
 package model
 
-import "time"
+import (
+	"time"
+)
 
-type Teacher struct {
+type Office struct {
 	ID        int64
-	Name      string
+	Name      uint8
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }
 
-func NewTeacher(name string, now time.Time) *Teacher {
-	return &Teacher{
+func NewOffice(name uint8, now time.Time) *Office {
+	return &Office{
 		Name:      name,
 		CreatedAt: now,
 		UpdatedAt: now,
