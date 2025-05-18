@@ -8,12 +8,12 @@ import (
 
 type CreateOfficeReq struct {
 	ID   int64
-	Name string
+	Name uint8
 }
 
 func (u *OfficeUseCase) CreateOffice(req CreateOfficeReq) (*model.Office, error) {
 	now := time.Now()
-	office := model.Office{req.ID, req.Name, now, now}
+	office := &model.Office{req.ID, req.Name, now, now}
 	err := u.r.CreateOffices(office)
 	if err != nil {
 		return nil, fmt.Errorf("u.r.CreateOffice: %w", err)

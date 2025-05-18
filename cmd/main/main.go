@@ -11,20 +11,20 @@ func main() {
 
 	officeUseCase := office_usecase.NewOfficeUseCase(officeRepo)
 
-	creareOffice, err := officeUseCase.CreateOffice(office_usecase.CreateOfficeReq{
-		Name: "10",
+	createdOffice, err := officeUseCase.CreateOffice(office_usecase.CreateOfficeReq{
+		Name: 10,
 	})
 	if err != nil {
 		fmt.Println(err)
 	}
-	creareOffice2, err := officeUseCase.CreateOffice(office_usecase.CreateOfficeReq{
-		Name: "21",
+	createdOffice2, err := officeUseCase.CreateOffice(office_usecase.CreateOfficeReq{
+		Name: 21,
 	})
 	if err != nil {
 		fmt.Println(err)
 	}
 	createdOffice3, err := officeUseCase.CreateOffice(office_usecase.CreateOfficeReq{
-		Name: "22",
+		Name: 22,
 	})
 	if err != nil {
 		fmt.Println(err)
