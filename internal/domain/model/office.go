@@ -4,12 +4,12 @@ import "time"
 
 type Office struct {
 	ID        int64
-	Name      string
+	Name      uint8
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }
 
-func NewOffice(name string, now time.Time) *Office {
+func NewOffice(name uint8, now time.Time) *Office {
 	return &Office{
 		Name:      name,
 		CreatedAt: now,
