@@ -3,9 +3,12 @@ package teacher_name
 type TeacherName string
 
 const (
-	BD TeacherName = "Безгубенко Данила Борисович"
-	AN TeacherName = "Аксенов Никита Андреевич"
-	AA TeacherName = "Антонова Анастасия Владимировна"
-	GA TeacherName = "Горбунов Антон Павлович"
-	FG TeacherName = "Федор Геннадьевич"
+	TeacherBD TeacherName = "Безгубенко Данила Борисович"
+	TeacherAN TeacherName = "Аксенов Никита Андреевич"
+	TeacherAA TeacherName = "Антонова Анастасия Владимировна"
+	TeacherGA TeacherName = "Горбунов Антон Павлович"
+	TeacherFG TeacherName = "Филиппов Федор Геннадьевич"
+	TeacherBA TeacherName = "Бутова Анна Геннадьевна"
+	TeacherSE TeacherName = "Сидоренко Елена Юрьевна"
+	TeacherMN TeacherName = "Мухина Наталья Николаевна"
 )
