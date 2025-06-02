@@ -2,33 +2,56 @@ package main
 
 import (
 	"fmt"
-	"school_schedule_2/internal/adapter/in_memory_storage/office_storage"
-	"school_schedule_2/internal/domain/model/enums/office_name"
-	"school_schedule_2/internal/usecase/office_usecase"
+	"school_schedule_2/internal/domain/model/enums"
+	"time"
+
+	"school_schedule_2/internal/adapter/in_memory_storage/lesson_storage"
+	"school_schedule_2/internal/adapter/in_memory_storage/teacher_storage"
+	"school_schedule_2/internal/domain/model"
+	"school_schedule_2/internal/usecase/lesson_usecase"
 )
 
 func main() {
-	officeRepo := office_storage.NewOfficeRepo()
+	teacherRepo := teacher_storage.NewTeacherRepo()
+	lessonRepo := lesson_storage.NewLessonRepo()
 
-	officeUseCase := office_usecase.NewOfficeUseCase(officeRepo)
+	now := time.Now()
 
-	createdOffice, err := officeUseCase.CreateOffice(office_usecase.CreateOfficeReq{
-		Name: office_name.Office10,
-	})
+	teacher := model.NewTeacher("Безгубенко", "Данила", "Борисович", now)
+
+	createdTeacher, err := teacherRepo.CreateTeacher(teacher)
 	if err != nil {
-		fmt.Println(err)
+		fmt.Println("Ошибка при создании учителя:", err)
+		return
 	}
-	createdOffice2, err := officeUseCase.CreateOffice(office_usecase.CreateOfficeReq{
-		Name: office_name.Office21,
-	})
+
+	teacher.ID = createdTeacher.ID
+
+	office := &model.Office{
+		ID:   1,
+		Name: enums.Office10, // Константа из enums
+	}
+
+	class := &model.Class{
+		ID:    1,
+		Grade: "9М",
+	}
+
+	lessonUC := lesson_usecase.NewLessonUseCase(lessonRepo)
+
+	req := lesson_usecase.CreateLessonReq{
+		Teacher:  teacher,
+		Class:    class,
+		Office:   office,
+		TimeSlot: model.FirstLesson,
+		Date:     now,
+	}
+
+	lesson, err := lessonUC.CreateLesson(req)
 	if err != nil {
-		fmt.Println(err)
+		fmt.Println("Ошибка создания урока:", err)
+		return
 	}
-	createdOffice3, err := officeUseCase.CreateOffice(office_usecase.CreateOfficeReq{
-		Name: office_name.Office22,
-	})
-	if err != nil {
-		fmt.Println(err)
-	}
-	fmt.Println(createdOffice, createdOffice2, createdOffice3)
+
+	fmt.Printf("Создан урок: %+v\n", lesson)
 }

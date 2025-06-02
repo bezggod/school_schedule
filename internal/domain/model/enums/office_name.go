@@ -1,4 +1,4 @@
-package office_name
+package enums
 
 type OfficeName string
 
