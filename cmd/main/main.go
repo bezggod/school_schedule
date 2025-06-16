@@ -2,7 +2,10 @@ package main
 
 import (
 	"fmt"
+	"school_schedule_2/internal/adapter/in_memory_storage/class_storage"
 	"school_schedule_2/internal/domain/model/enums"
+	"school_schedule_2/internal/usecase/class_usecase"
+	"school_schedule_2/internal/usecase/teacher_usecase"
 	"time"
 
 	"school_schedule_2/internal/adapter/in_memory_storage/lesson_storage"
@@ -14,44 +17,49 @@ import (
 func main() {
 	teacherRepo := teacher_storage.NewTeacherRepo()
 	lessonRepo := lesson_storage.NewLessonRepo()
+	classRepo := class_storage.NewClassRepo()
 
-	now := time.Now()
+	teacherUC := teacher_usecase.NewTeacherUseCase(teacherRepo)
+	lessonUC := lesson_usecase.NewLessonUseCase(lessonRepo)
+	classUC := class_usecase.NewClassUseCase(classRepo)
 
-	teacher := model.NewTeacher("Безгубенко", "Данила", "Борисович", now)
+	teacherReq := teacher_usecase.CreateTeacherReq{
+		Name:       "Безгубенко",
+		Surname:    "Данила",
+		Patronymic: "Борисович",
+	}
 
-	createdTeacher, err := teacherRepo.CreateTeacher(teacher)
+	createdTeacher, err := teacherUC.CreateTeacher(teacherReq)
 	if err != nil {
-		fmt.Println("Ошибка при создании учителя:", err)
+		fmt.Println("Ошибка в создании учителя", err)
 		return
 	}
 
-	teacher.ID = createdTeacher.ID
-
-	office := &model.Office{
-		ID:   1,
-		Name: enums.Office10, // Константа из enums
-	}
-
-	class := &model.Class{
-		ID:    1,
+	classReq := class_usecase.CreateClassReq{
 		Grade: "9М",
 	}
-
-	lessonUC := lesson_usecase.NewLessonUseCase(lessonRepo)
-
-	req := lesson_usecase.CreateLessonReq{
-		Teacher:  teacher,
-		Class:    class,
-		Office:   office,
-		TimeSlot: model.FirstLesson,
-		Date:     now,
+	createdClass, err := classUC.CreateClass(classReq)
+	if err != nil {
+		fmt.Println("Ошибка создания класса", err)
 	}
 
-	lesson, err := lessonUC.CreateLesson(req)
+	office := model.NewOffice(enums.Office10, time.Now())
+	subject := model.NewSubject(enums.SubjectHistory, time.Now())
+
+	lessonReq := lesson_usecase.CreateLessonReq{
+		Teacher:  createdTeacher,
+		Class:    createdClass,
+		Office:   office,
+		TimeSlot: model.FirstLesson,
+		Subject:  subject,
+		Date:     time.Now(),
+	}
+
+	createdLesson, err := lessonUC.CreateLesson(lessonReq)
 	if err != nil {
 		fmt.Println("Ошибка создания урока:", err)
 		return
 	}
 
-	fmt.Printf("Создан урок: %+v\n", lesson)
+	fmt.Printf("Создан урок: %+v\n", createdLesson)
 }

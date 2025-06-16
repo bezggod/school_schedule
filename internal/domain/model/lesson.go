@@ -22,17 +22,19 @@ type Lesson struct {
 	Class     *Class
 	Office    *Office
 	TimeSlot  TimeSlot
+	Subject   *Subject
 	Date      time.Time
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }
 
-func NewLesson(teacher *Teacher, class *Class, office *Office, timeSlot TimeSlot, date time.Time, now time.Time) *Lesson {
+func NewLesson(teacher *Teacher, class *Class, office *Office, timeSlot TimeSlot, subject *Subject, date time.Time, now time.Time) *Lesson {
 	return &Lesson{
 		Teacher:   teacher,
 		Class:     class,
 		Office:    office,
 		TimeSlot:  timeSlot,
+		Subject:   subject,
 		Date:      date,
 		CreatedAt: now,
 		UpdatedAt: now,
