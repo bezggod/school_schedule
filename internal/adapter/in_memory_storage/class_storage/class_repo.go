@@ -13,3 +13,10 @@ func NewClassRepo() *ClassRepo {
 		nextID:  1,
 	}
 }
+
+func (r *ClassRepo) SetNextID() int64 {
+	id := r.nextID
+	r.nextID++
+
+	return id
+}

@@ -1,37 +1,26 @@
 package model
 
 import (
+	"fmt"
 	"time"
-)
-
-type TimeSlot uint8
-
-const (
-	FirstLesson   TimeSlot = 1
-	SecondLesson  TimeSlot = 2
-	ThirdLesson   TimeSlot = 3
-	FourthLesson  TimeSlot = 4
-	FifthLesson   TimeSlot = 5
-	SixthLesson   TimeSlot = 6
-	SeventhLesson TimeSlot = 7
 )
 
 type Lesson struct {
 	ID        int64
-	Teacher   *Teacher
-	Class     *Class
+	TeacherID int64
+	ClassID   int64
 	Office    *Office
-	TimeSlot  TimeSlot
+	TimeSlot  *TimeSlot
 	Subject   *Subject
 	Date      time.Time
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }
 
-func NewLesson(teacher *Teacher, class *Class, office *Office, timeSlot TimeSlot, subject *Subject, date time.Time, now time.Time) *Lesson {
+func NewLesson(teacherID int64, classID int64, office *Office, timeSlot *TimeSlot, subject *Subject, date time.Time, now time.Time) *Lesson {
 	return &Lesson{
-		Teacher:   teacher,
-		Class:     class,
+		TeacherID: teacherID,
+		ClassID:   classID,
 		Office:    office,
 		TimeSlot:  timeSlot,
 		Subject:   subject,
@@ -39,4 +28,30 @@ func NewLesson(teacher *Teacher, class *Class, office *Office, timeSlot TimeSlot
 		CreatedAt: now,
 		UpdatedAt: now,
 	}
+}
+func (l *Lesson) String() string {
+	office := "nil"
+	if l.Office != nil {
+		office = string(l.Office.Name)
+	}
+
+	timeSlot := "nil"
+	if l.TimeSlot != nil {
+		timeSlot = string(l.TimeSlot.Slot)
+	}
+
+	subject := "nil"
+	if l.Subject != nil {
+		subject = string(l.Subject.Name)
+	}
+	return fmt.Sprintf("Lesson[ID=%d, TeacherID=%d, ClassID=%d, Office=%s, TimeSlot=%s, Subject=%s, Date=%s]",
+		l.ID,
+		l.TeacherID,
+		l.ClassID,
+		office,
+		timeSlot,
+		subject,
+		l.Date.Format("2006-01-02"),
+	)
+
 }

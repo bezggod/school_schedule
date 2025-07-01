@@ -22,3 +22,7 @@ func NewTeacher(name, surname, patronymic string, now time.Time) *Teacher {
 		UpdatedAt:  now,
 	}
 }
+
+func (teacher *Teacher) String() string {
+	return teacher.Name + " " + teacher.Surname + " " + teacher.Patronymic
+}

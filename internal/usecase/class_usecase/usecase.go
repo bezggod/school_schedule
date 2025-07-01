@@ -4,12 +4,12 @@ import (
 	"school_schedule_2/internal/adapter/in_memory_storage/class_storage"
 )
 
-type ClassUseCase struct {
+type UseCase struct {
 	ClassRepo *class_storage.ClassRepo
 }
 
-func NewClassUseCase(repo *class_storage.ClassRepo) *ClassUseCase {
-	return &ClassUseCase{
+func NewUseCase(repo *class_storage.ClassRepo) *UseCase {
+	return &UseCase{
 		ClassRepo: repo,
 	}
 }

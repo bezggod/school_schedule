@@ -3,59 +3,55 @@ package main
 import (
 	"fmt"
 	"school_schedule_2/internal/adapter/in_memory_storage/class_storage"
-	"school_schedule_2/internal/domain/model/enums"
-	"school_schedule_2/internal/usecase/class_usecase"
-	"school_schedule_2/internal/usecase/teacher_usecase"
-	"time"
-
 	"school_schedule_2/internal/adapter/in_memory_storage/lesson_storage"
 	"school_schedule_2/internal/adapter/in_memory_storage/teacher_storage"
 	"school_schedule_2/internal/domain/model"
+	"school_schedule_2/internal/domain/model/enums"
+	"school_schedule_2/internal/usecase/class_usecase"
 	"school_schedule_2/internal/usecase/lesson_usecase"
+	"school_schedule_2/internal/usecase/teacher_usecase"
+	"time"
 )
 
 func main() {
+
 	teacherRepo := teacher_storage.NewTeacherRepo()
-	lessonRepo := lesson_storage.NewLessonRepo()
+	lessonRepo := lesson_storage.NewClassRepo()
 	classRepo := class_storage.NewClassRepo()
 
 	teacherUC := teacher_usecase.NewTeacherUseCase(teacherRepo)
-	lessonUC := lesson_usecase.NewLessonUseCase(lessonRepo)
-	classUC := class_usecase.NewClassUseCase(classRepo)
+	lessonUC := lesson_usecase.NewLessonUseCase(lessonRepo, teacherRepo)
+	classUC := class_usecase.NewUseCase(classRepo)
 
-	teacherReq := teacher_usecase.CreateTeacherReq{
+	createdTeacher, err := teacherUC.CreateTeacher(teacher_usecase.CreateTeacherReq{
 		Name:       "Безгубенко",
 		Surname:    "Данила",
 		Patronymic: "Борисович",
-	}
-
-	createdTeacher, err := teacherUC.CreateTeacher(teacherReq)
+	})
 	if err != nil {
 		fmt.Println("Ошибка в создании учителя", err)
 		return
 	}
 
-	classReq := class_usecase.CreateClassReq{
+	createdClass, err := classUC.CreateClass(class_usecase.CreateClassReq{
 		Grade: "9М",
-	}
-	createdClass, err := classUC.CreateClass(classReq)
+	})
 	if err != nil {
 		fmt.Println("Ошибка создания класса", err)
 	}
 
-	office := model.NewOffice(enums.Office10, time.Now())
-	subject := model.NewSubject(enums.SubjectHistory, time.Now())
+	timeslot := enums.FirstLesson
+	office := enums.Office10
+	subject := enums.SubjectSocialScience
 
-	lessonReq := lesson_usecase.CreateLessonReq{
-		Teacher:  createdTeacher,
-		Class:    createdClass,
-		Office:   office,
-		TimeSlot: model.FirstLesson,
-		Subject:  subject,
-		Date:     time.Now(),
-	}
-
-	createdLesson, err := lessonUC.CreateLesson(lessonReq)
+	createdLesson, err := lessonUC.CreateLesson(lesson_usecase.CreateLessonReq{
+		TeacherID: createdTeacher.ID,
+		ClassID:   createdClass.ID,
+		Office:    model.Office,
+		TimeSlot:  timeslot,
+		Subject:   subject,
+		Date:      time.Now(),
+	})
 	if err != nil {
 		fmt.Println("Ошибка создания урока:", err)
 		return

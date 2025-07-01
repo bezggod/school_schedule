@@ -1,15 +1,33 @@
 package lesson_usecase
 
 import (
-	"school_schedule_2/internal/adapter/in_memory_storage/lesson_storage"
+	"school_schedule_2/internal/domain/model"
+	"school_schedule_2/internal/domain/model/enums"
 )
 
 type LessonUseCase struct {
-	LessonRepo *lesson_storage.LessonRepo
+	lessonRepo  lessonRepo
+	teacherRepo teacherRepo
+	classRepo   classRepo
 }
 
-func NewLessonUseCase(repo *lesson_storage.LessonRepo) *LessonUseCase {
+func NewLessonUseCase(lessonRepo lessonRepo, teacherRepo teacherRepo, classRepo classRepo) *LessonUseCase {
 	return &LessonUseCase{
-		LessonRepo: repo,
+		lessonRepo:  lessonRepo,
+		teacherRepo: teacherRepo,
+		classRepo:   classRepo,
 	}
+}
+
+type lessonRepo interface {
+	CreateLesson(lesson *model.Lesson) (*model.Lesson, error)
+	LessonExists(name enums.OfficeName, slot model.TimeSlot) bool
+}
+
+type teacherRepo interface {
+	GetByID(id int64) (*model.Teacher, error)
+}
+
+type classRepo interface {
+	GetByID(id int64) (*model.Class, error)
 }

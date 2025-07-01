@@ -10,11 +10,11 @@ type CreateClassReq struct {
 	Grade string
 }
 
-func (usecase *ClassUseCase) CreateClass(req CreateClassReq) (*model.Class, error) {
+func (u *UseCase) CreateClass(req CreateClassReq) (*model.Class, error) {
 	now := time.Now()
 	class := model.NewClass(req.Grade, now)
 
-	createClass, err := usecase.ClassRepo.CreateClass(class)
+	createClass, err := u.ClassRepo.CreateClass(class)
 	if err != nil {
 		return nil, fmt.Errorf("classRepo.CreateClass: %w", err)
 	}

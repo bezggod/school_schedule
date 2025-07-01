@@ -13,3 +13,9 @@ func NewTeacherRepo() *TeacherRepo {
 		nextID:   1,
 	}
 }
+func (r *TeacherRepo) SetNextID() int64 {
+	id := r.nextID
+	r.nextID++
+
+	return id
+}

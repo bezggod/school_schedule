@@ -1,7 +1,6 @@
 package teacher_usecase
 
 import (
-	"errors"
 	"school_schedule_2/internal/domain/model"
 	"time"
 )
@@ -12,15 +11,12 @@ type CreateTeacherReq struct {
 	Patronymic string
 }
 
-func (usecase *TeacherUseCase) CreateTeacher(req CreateTeacherReq) (*model.Teacher, error) {
-	if req.Name == "" || req.Surname == "" || req.Patronymic == "" {
-		return nil, errors.New("Имя, Фамилия, Отчество не могут быть пустыми")
-	}
+func (u *TeacherUseCase) CreateTeacher(req CreateTeacherReq) (*model.Teacher, error) {
 
 	now := time.Now()
 	teacher := model.NewTeacher(req.Name, req.Surname, req.Patronymic, now)
 
-	createdTeacher, err := usecase.TeacherRepo.CreateTeacher(teacher)
+	createdTeacher, err := u.TeacherRepo.CreateTeacher(teacher)
 	if err != nil {
 		return nil, err
 	}
