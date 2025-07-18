@@ -1,33 +1,38 @@
 package lesson_usecase
 
 import (
+	"school_schedule_2/internal/domain/dto"
 	"school_schedule_2/internal/domain/model"
 	"school_schedule_2/internal/domain/model/enums"
 )
 
-type LessonUseCase struct {
+type UseCase struct {
 	lessonRepo  lessonRepo
 	teacherRepo teacherRepo
 	classRepo   classRepo
 }
 
-func NewLessonUseCase(lessonRepo lessonRepo, teacherRepo teacherRepo, classRepo classRepo) *LessonUseCase {
-	return &LessonUseCase{
+type (
+	lessonRepo interface {
+		CreateLesson(lesson *model.Lesson) (*model.Lesson, error)
+		LessonExists(name enums.OfficeName, slot enums.TimeSlotName) bool
+		FindLesson(req dto.FindAllLessonFilter) ([]*model.Lesson, error)
+		GetByID(id int64) (*model.Lesson, error)
+	}
+
+	teacherRepo interface {
+		GetByID(id int64) (*model.Teacher, error)
+	}
+
+	classRepo interface {
+		GetByID(id int64) (*model.Class, error)
+	}
+)
+
+func NewUseCase(lessonRepo lessonRepo, teacherRepo teacherRepo, classRepo classRepo) *UseCase {
+	return &UseCase{
 		lessonRepo:  lessonRepo,
 		teacherRepo: teacherRepo,
 		classRepo:   classRepo,
 	}
-}
-
-type lessonRepo interface {
-	CreateLesson(lesson *model.Lesson) (*model.Lesson, error)
-	LessonExists(name enums.OfficeName, slot model.TimeSlot) bool
-}
-
-type teacherRepo interface {
-	GetByID(id int64) (*model.Teacher, error)
-}
-
-type classRepo interface {
-	GetByID(id int64) (*model.Class, error)
 }

@@ -5,7 +5,7 @@ import (
 	"school_schedule_2/internal/domain/model"
 )
 
-func (r *ClassRepo) GetBClassyID(id int64) (*model.Class, error) {
+func (r *Repo) GetByID(id int64) (*model.Class, error) {
 	class, ok := r.classes[id]
 	if !ok {
 		return nil, fmt.Errorf("class not found")

@@ -2,18 +2,18 @@ package teacher_storage
 
 import "school_schedule_2/internal/domain/model"
 
-type TeacherRepo struct {
+type Repo struct {
 	teachers map[int64]*model.Teacher
 	nextID   int64
 }
 
-func NewTeacherRepo() *TeacherRepo {
-	return &TeacherRepo{
+func NewTeacherRepo() *Repo {
+	return &Repo{
 		teachers: make(map[int64]*model.Teacher),
 		nextID:   1,
 	}
 }
-func (r *TeacherRepo) SetNextID() int64 {
+func (r *Repo) SetNextID() int64 {
 	id := r.nextID
 	r.nextID++
 

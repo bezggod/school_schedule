@@ -1,4 +1,4 @@
-package class_usecase //тут создание новых классов
+package class_usecase
 
 import (
 	"fmt"
@@ -11,12 +11,13 @@ type CreateClassReq struct {
 }
 
 func (u *UseCase) CreateClass(req CreateClassReq) (*model.Class, error) {
+
 	now := time.Now()
 	class := model.NewClass(req.Grade, now)
-
-	createClass, err := u.ClassRepo.CreateClass(class)
+	createdClass, err := u.ClassRepo.CreateClass(class)
 	if err != nil {
 		return nil, fmt.Errorf("classRepo.CreateClass: %w", err)
 	}
-	return createClass, nil
+
+	return createdClass, nil
 }

@@ -2,19 +2,19 @@ package class_storage
 
 import "school_schedule_2/internal/domain/model"
 
-type ClassRepo struct {
+type Repo struct {
 	classes map[int64]*model.Class
 	nextID  int64
 }
 
-func NewClassRepo() *ClassRepo {
-	return &ClassRepo{
+func NewRepo() *Repo {
+	return &Repo{
 		classes: make(map[int64]*model.Class),
 		nextID:  1,
 	}
 }
 
-func (r *ClassRepo) SetNextID() int64 {
+func (r *Repo) SetNextID() int64 {
 	id := r.nextID
 	r.nextID++
 
