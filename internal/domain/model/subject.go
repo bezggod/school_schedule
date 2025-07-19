@@ -5,15 +5,15 @@ import (
 	"time"
 )
 
-type Office struct {
+type Subject struct {
 	ID        int64
-	Name      enums.OfficeName
+	Name      enums.SubjectName
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }
 
-func NewOffice(name enums.OfficeName, now time.Time) *Office {
-	return &Office{
+func NewSubject(name enums.SubjectName, now time.Time) *Subject {
+	return &Subject{
 		Name:      name,
 		CreatedAt: now,
 		UpdatedAt: now,

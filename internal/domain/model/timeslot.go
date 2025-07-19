@@ -5,16 +5,16 @@ import (
 	"time"
 )
 
-type Office struct {
+type TimeSlot struct {
 	ID        int64
-	Name      enums.OfficeName
+	Slot      enums.TimeSlotName
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }
 
-func NewOffice(name enums.OfficeName, now time.Time) *Office {
-	return &Office{
-		Name:      name,
+func NewTimeSlot(name enums.TimeSlotName, now time.Time) *TimeSlot {
+	return &TimeSlot{
+		Slot:      name,
 		CreatedAt: now,
 		UpdatedAt: now,
 	}
