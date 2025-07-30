@@ -4,12 +4,14 @@ import (
 	"school_schedule_2/internal/domain/dto"
 	"school_schedule_2/internal/domain/model"
 	"school_schedule_2/internal/domain/model/enums"
+	"time"
 )
 
 type UseCase struct {
 	lessonRepo  lessonRepo
 	teacherRepo teacherRepo
 	classRepo   classRepo
+	timer       timer
 }
 
 type (
@@ -27,12 +29,17 @@ type (
 	classRepo interface {
 		GetByID(id int64) (*model.Class, error)
 	}
+
+	timer interface {
+		NowMoscow() time.Time
+	}
 )
 
-func NewUseCase(lessonRepo lessonRepo, teacherRepo teacherRepo, classRepo classRepo) *UseCase {
+func NewUseCase(lessonRepo lessonRepo, teacherRepo teacherRepo, classRepo classRepo, timer timer) *UseCase {
 	return &UseCase{
 		lessonRepo:  lessonRepo,
 		teacherRepo: teacherRepo,
 		classRepo:   classRepo,
+		timer:       timer,
 	}
 }

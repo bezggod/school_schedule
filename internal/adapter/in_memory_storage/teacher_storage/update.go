@@ -2,19 +2,27 @@ package teacher_storage
 
 import (
 	"fmt"
+	"school_schedule_2/internal/domain/dto"
 	"school_schedule_2/internal/domain/model"
 )
 
-func (r *Repo) UpdateTeacher(teacher *model.Teacher) (*model.Teacher, error) {
-	upTeacher, ok := r.teachers[teacher.ID]
+func (r *Repo) UpdateTeacher(filter dto.UpdateTeacherFilter) (*model.Teacher, error) {
+	upTeacher, ok := r.teachers[filter.ID]
 	if !ok {
-		return nil, fmt.Errorf("teacher with ID %d not found", teacher.ID)
+		return nil, fmt.Errorf("teacher with ID %d not found", filter.ID)
 	}
 
-	upTeacher.Name = teacher.Name
-	upTeacher.Surname = teacher.Surname
-	upTeacher.Patronymic = teacher.Patronymic
+	if filter.Name != nil {
+		upTeacher.Name = *filter.Name
+	}
 
-	r.teachers[teacher.ID] = upTeacher
+	if filter.Surname != nil {
+		upTeacher.Surname = *filter.Surname
+	}
+	if filter.Patronymic != nil {
+		upTeacher.Patronymic = *filter.Patronymic
+	}
+
+	r.teachers[filter.ID] = upTeacher
 	return upTeacher, nil
 }

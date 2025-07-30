@@ -1,10 +1,14 @@
 package dto
 
-import (
-	"school_schedule_2/internal/domain/model/enums"
-)
-
 type FindAllTeacherFilter struct {
-	TimeSlot enums.TimeSlotName
-	Office   enums.OfficeName
+	Surname    string
+	Name       string
+	Patronymic string
+}
+
+type UpdateTeacherFilter struct {
+	ID         int64
+	Surname    *string
+	Name       *string
+	Patronymic *string
 }

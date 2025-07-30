@@ -6,17 +6,17 @@ import (
 
 type Teacher struct {
 	ID         int64
-	Name       string
 	Surname    string
+	Name       string
 	Patronymic string
 	CreatedAt  time.Time
 	UpdatedAt  time.Time
 }
 
-func NewTeacher(name, surname, patronymic string, now time.Time) *Teacher {
+func NewTeacher(surname, name, patronymic string, now time.Time) *Teacher {
 	return &Teacher{
-		Name:       name,
 		Surname:    surname,
+		Name:       name,
 		Patronymic: patronymic,
 		CreatedAt:  now,
 		UpdatedAt:  now,
@@ -24,5 +24,5 @@ func NewTeacher(name, surname, patronymic string, now time.Time) *Teacher {
 }
 
 func (teacher *Teacher) String() string {
-	return teacher.Name + " " + teacher.Surname + " " + teacher.Patronymic
+	return teacher.Surname + " " + teacher.Name + " " + teacher.Patronymic
 }

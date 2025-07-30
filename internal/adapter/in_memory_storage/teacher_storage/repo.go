@@ -7,7 +7,7 @@ type Repo struct {
 	nextID   int64
 }
 
-func NewTeacherRepo() *Repo {
+func NewRepo() *Repo {
 	return &Repo{
 		teachers: make(map[int64]*model.Teacher),
 		nextID:   1,

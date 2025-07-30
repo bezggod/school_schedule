@@ -3,7 +3,6 @@ package class_usecase
 import (
 	"fmt"
 	"school_schedule_2/internal/domain/model"
-	"time"
 )
 
 type CreateClassReq struct {
@@ -12,9 +11,10 @@ type CreateClassReq struct {
 
 func (u *UseCase) CreateClass(req CreateClassReq) (*model.Class, error) {
 
-	now := time.Now()
+	now := u.timer.NowMoscow()
 	class := model.NewClass(req.Grade, now)
-	createdClass, err := u.ClassRepo.CreateClass(class)
+
+	createdClass, err := u.classRepo.CreateClass(class)
 	if err != nil {
 		return nil, fmt.Errorf("classRepo.CreateClass: %w", err)
 	}

@@ -1,6 +1,7 @@
 package lesson_usecase
 
 import (
+	"errors"
 	"fmt"
 	"school_schedule_2/internal/domain/dto"
 	"school_schedule_2/internal/domain/model"
@@ -8,10 +9,14 @@ import (
 	"time"
 )
 
+var errEmptyTeacher = errors.New("empty teacher name")
+
 type FindAllReq struct {
 	TeacherID int64
+	ClassID   int64
 	Office    enums.OfficeName
 	TimeSlot  enums.TimeSlotName
+	Subject   enums.SubjectName
 }
 type FindAllResponse struct {
 	Lessons []*Lesson
@@ -34,6 +39,7 @@ func (uc *UseCase) FindAll(req FindAllReq) (*FindAllResponse, error) {
 		TeacherID:  req.TeacherID,
 		OfficeName: req.Office,
 		TimeSlot:   req.TimeSlot,
+		ClassID:    req.ClassID,
 	})
 	if err != nil {
 		return nil, fmt.Errorf("lessonRepo.FindAll: %w", err)
@@ -50,6 +56,9 @@ func (uc *UseCase) FindAll(req FindAllReq) (*FindAllResponse, error) {
 		teacher, err = uc.teacherRepo.GetByID(lesson.TeacherID)
 		if err != nil {
 			return nil, fmt.Errorf("teacherRepo.GetByID: %w", err)
+		}
+		if teacher == nil {
+			return nil, fmt.Errorf("teacherRepo.GetByID: %w with id %d", errEmptyTeacher, lesson.TeacherID)
 		}
 
 		class, err = uc.classRepo.GetByID(lesson.ClassID)

@@ -1,11 +1,14 @@
 package lesson_usecase
 
 import (
+	"errors"
 	"fmt"
 	"school_schedule_2/internal/domain/model"
 	"school_schedule_2/internal/domain/model/enums"
 	"time"
 )
+
+var errEmptyClass = errors.New("empty class")
 
 type CreateLessonReq struct {
 	TeacherID int64
@@ -26,11 +29,16 @@ func (uc *UseCase) CreateLesson(req CreateLessonReq) (*model.Lesson, error) {
 	if _, err := uc.teacherRepo.GetByID(req.TeacherID); err != nil {
 		return nil, fmt.Errorf("teacherRepo.GetByID: %w", err)
 	}
-	if _, err := uc.classRepo.GetByID(req.ClassID); err != nil {
+
+	class, err := uc.classRepo.GetByID(req.ClassID)
+	if err != nil {
 		return nil, fmt.Errorf("classRepo.GetByID: %w", err)
 	}
+	if class == nil {
+		return nil, fmt.Errorf("classRepo.GetByID: %w with id %d", errEmptyClass, req.ClassID)
+	}
 
-	now := time.Now()
+	now := uc.timer.NowMoscow()
 	lesson := model.NewLesson(
 		req.TeacherID,
 		req.ClassID,
