@@ -197,29 +197,29 @@ func (_c *ClassRepo_GetByID_Call) RunAndReturn(run func(int64) (*model.Class, er
 	return _c
 }
 
-// UpdateClass provides a mock function with given fields: filter
-func (_m *ClassRepo) UpdateClass(filter dto.UpdateClassFilter) (*model.Class, error) {
-	ret := _m.Called(filter)
+// Update provides a mock function with given fields: class
+func (_m *ClassRepo) Update(class *model.Class) (*model.Class, error) {
+	ret := _m.Called(class)
 
 	if len(ret) == 0 {
-		panic("no return value specified for UpdateClass")
+		panic("no return value specified for Update")
 	}
 
 	var r0 *model.Class
 	var r1 error
-	if rf, ok := ret.Get(0).(func(dto.UpdateClassFilter) (*model.Class, error)); ok {
-		return rf(filter)
+	if rf, ok := ret.Get(0).(func(*model.Class) (*model.Class, error)); ok {
+		return rf(class)
 	}
-	if rf, ok := ret.Get(0).(func(dto.UpdateClassFilter) *model.Class); ok {
-		r0 = rf(filter)
+	if rf, ok := ret.Get(0).(func(*model.Class) *model.Class); ok {
+		r0 = rf(class)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*model.Class)
 		}
 	}
 
-	if rf, ok := ret.Get(1).(func(dto.UpdateClassFilter) error); ok {
-		r1 = rf(filter)
+	if rf, ok := ret.Get(1).(func(*model.Class) error); ok {
+		r1 = rf(class)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -227,30 +227,30 @@ func (_m *ClassRepo) UpdateClass(filter dto.UpdateClassFilter) (*model.Class, er
 	return r0, r1
 }
 
-// ClassRepo_UpdateClass_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'UpdateClass'
-type ClassRepo_UpdateClass_Call struct {
+// ClassRepo_Update_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'Update'
+type ClassRepo_Update_Call struct {
 	*mock.Call
 }
 
-// UpdateClass is a helper method to define mock.On call
-//   - filter dto.UpdateClassFilter
-func (_e *ClassRepo_Expecter) UpdateClass(filter interface{}) *ClassRepo_UpdateClass_Call {
-	return &ClassRepo_UpdateClass_Call{Call: _e.mock.On("UpdateClass", filter)}
+// Update is a helper method to define mock.On call
+//   - class *model.Class
+func (_e *ClassRepo_Expecter) Update(class interface{}) *ClassRepo_Update_Call {
+	return &ClassRepo_Update_Call{Call: _e.mock.On("Update", class)}
 }
 
-func (_c *ClassRepo_UpdateClass_Call) Run(run func(filter dto.UpdateClassFilter)) *ClassRepo_UpdateClass_Call {
+func (_c *ClassRepo_Update_Call) Run(run func(class *model.Class)) *ClassRepo_Update_Call {
 	_c.Call.Run(func(args mock.Arguments) {
-		run(args[0].(dto.UpdateClassFilter))
+		run(args[0].(*model.Class))
 	})
 	return _c
 }
 
-func (_c *ClassRepo_UpdateClass_Call) Return(_a0 *model.Class, _a1 error) *ClassRepo_UpdateClass_Call {
+func (_c *ClassRepo_Update_Call) Return(_a0 *model.Class, _a1 error) *ClassRepo_Update_Call {
 	_c.Call.Return(_a0, _a1)
 	return _c
 }
 
-func (_c *ClassRepo_UpdateClass_Call) RunAndReturn(run func(dto.UpdateClassFilter) (*model.Class, error)) *ClassRepo_UpdateClass_Call {
+func (_c *ClassRepo_Update_Call) RunAndReturn(run func(*model.Class) (*model.Class, error)) *ClassRepo_Update_Call {
 	_c.Call.Return(run)
 	return _c
 }
