@@ -2,10 +2,12 @@ package class_usecase
 
 import (
 	"errors"
-	"github.com/stretchr/testify/assert"
-	"school_schedule_2/internal/domain/model"
 	"testing"
 	"time"
+
+	"school_schedule_2/internal/domain/model"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestUseCase_CreateClass(t *testing.T) {

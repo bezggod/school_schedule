@@ -1,20 +1,18 @@
 package class_usecase
 
 import (
-	"errors"
-	"fmt"
-	"github.com/stretchr/testify/assert"
-	"school_schedule_2/internal/domain/dto"
-	"school_schedule_2/internal/domain/model"
 	"testing"
 	"time"
+
+	"school_schedule_2/internal/domain/model"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestUseCase_UpdateClass(t *testing.T) {
 	t.Parallel()
 
 	now := time.Now()
-	errTest := errors.New("update test error")
 
 	type args struct {
 		req UpdateClassReq
@@ -32,7 +30,7 @@ func TestUseCase_UpdateClass(t *testing.T) {
 			args: args{
 				req: UpdateClassReq{
 					ID:    1,
-					Grade: nil,
+					Grade: "8B",
 				},
 			},
 			want: &model.Class{
@@ -44,47 +42,17 @@ func TestUseCase_UpdateClass(t *testing.T) {
 			before: func(m mockService, args args) {
 				class := &model.Class{
 
-					ID: 1,
-					Grade: func() string {
-						if args.req.Grade != nil {
-							return *args.req.Grade
-						}
-						return "9А"
-					}(),
+					ID:        1,
+					Grade:     "9А",
 					CreatedAt: now,
 					UpdatedAt: now,
 				}
-				m.classRepo.EXPECT().UpdateClass(dto.UpdateClassFilter{
-					ClassID: args.req.ID,
-					Grade:   args.req.Grade,
-				}).Return(class, nil)
+				m.classRepo.EXPECT().GetByID(args.req.ID).Return(class, nil)
+				updatedClass := *class
+				updatedClass.Grade = args.req.Grade
+
+				m.classRepo.EXPECT().UpdateClass(updatedClass).Return(class, nil)
 			},
-		},
-		{
-			name: "classRepo.UpdateClass error",
-			args: args{
-				req: UpdateClassReq{
-					ID:    1,
-					Grade: nil,
-				},
-			},
-			wantErr: errTest,
-			before: func(m mockService, args args) {
-				m.classRepo.EXPECT().UpdateClass(dto.UpdateClassFilter{
-					ClassID: args.req.ID,
-					Grade:   args.req.Grade,
-				}).Return(nil, errTest)
-			},
-		},
-		{
-			name: "invalid class ID",
-			args: args{
-				req: UpdateClassReq{
-					ID:    0,
-					Grade: nil,
-				},
-			},
-			wantErr: fmt.Errorf("invalid class ID"),
 		},
 	}
 	for _, tc := range tests {

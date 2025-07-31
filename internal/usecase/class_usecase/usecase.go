@@ -1,9 +1,10 @@
 package class_usecase
 
 import (
+	"time"
+
 	"school_schedule_2/internal/domain/dto"
 	"school_schedule_2/internal/domain/model"
-	"time"
 )
 
 type UseCase struct {
@@ -16,7 +17,7 @@ type (
 		CreateClass(class *model.Class) (*model.Class, error)
 		FindAll(req dto.FindAllClassesFilter) ([]*model.Class, error)
 		GetByID(id int64) (*model.Class, error)
-		UpdateClass(filter dto.UpdateClassFilter) (*model.Class, error)
+		Update(class *model.Class) (*model.Class, error)
 	}
 
 	timer interface {
