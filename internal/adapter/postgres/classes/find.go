@@ -26,7 +26,7 @@ func (r *Repo) FindClass(id int64) (*model.Class, error) {
 
 	if err != nil {
 		if errors.Is(err, pgx.ErrNoRows) {
-			return nil, fmt.Errorf("no class found with id %d", id)
+			return nil, NotFound
 		}
 		return nil, fmt.Errorf("FindClass: %w", err)
 	}

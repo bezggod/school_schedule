@@ -1,27 +1,29 @@
 package service_provider
 
 import (
-	"school_schedule_2/internal/adapter/in_memory_storage/class_storage"
-	"school_schedule_2/internal/adapter/in_memory_storage/lesson_storage"
-	"school_schedule_2/internal/adapter/in_memory_storage/teacher_storage"
+	"context"
+	"school_schedule_2/internal/adapter/postgres/lessons"
+	"school_schedule_2/internal/adapter/postgres/teachers"
+
+	"school_schedule_2/internal/adapter/postgres/classes"
 )
 
-func (s *ServiceProvider) getClassRepo() *class_storage.Repo {
+func (s *ServiceProvider) getClassRepo() *classes.Repo {
 	if s.classRepo == nil {
-		s.classRepo = class_storage.NewRepo()
+		s.classRepo = classes.NewRepo(s.getDbCluster(context.Background()))
 	}
 	return s.classRepo
 }
-func (s *ServiceProvider) getTeacherRepo() *teacher_storage.Repo {
+func (s *ServiceProvider) getTeacherRepo() *teachers.Repo {
 	if s.teacherRepo == nil {
-		s.teacherRepo = teacher_storage.NewRepo()
+		s.teacherRepo = teachers.NewRepo(s.getDbCluster(context.Background()))
 	}
 	return s.teacherRepo
 }
 
-func (s *ServiceProvider) getLessonRepo() *lesson_storage.Repo {
+func (s *ServiceProvider) getLessonRepo() *lessons.Repo {
 	if s.lessonRepo == nil {
-		s.lessonRepo = lesson_storage.NewRepo()
+		s.lessonRepo = lessons.NewRepo(s.getDbCluster(context.Background()))
 	}
 	return s.lessonRepo
 }

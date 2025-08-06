@@ -30,7 +30,7 @@ func (r *Repo) FindLesson(id int64) (*model.Lesson, error) {
 		)
 	if err != nil {
 		if errors.Is(err, pgx.ErrNoRows) {
-			return nil, fmt.Errorf("no lesson found with id %d", id)
+			return nil, NotFound
 		}
 		return nil, fmt.Errorf("FindLesson: %w", err)
 	}
