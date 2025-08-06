@@ -4,23 +4,20 @@ import (
 	"fmt"
 	"school_schedule_2/internal/domain/dto"
 	"school_schedule_2/internal/domain/model"
-	"school_schedule_2/internal/domain/model/enums"
 )
 
 type FindAllReq struct {
-	ClassID  int64
-	TimeSlot enums.TimeSlotName
-	Office   enums.OfficeName
+	ClassID int64
+	Grade   string
 }
 
 func (u *UseCase) FindAll(req FindAllReq) ([]*model.Class, error) {
-	classes, err := u.ClassRepo.FindAll(dto.FindAllClassesFilter{
-		ClassID:  req.ClassID,
-		TimeSlot: req.TimeSlot,
-		Office:   req.Office,
+	classes, err := u.classRepo.FindAll(dto.FindAllClassesFilter{
+		ClassID: req.ClassID,
+		Grade:   req.Grade,
 	})
 	if err != nil {
-		return nil, fmt.Errorf("ClassRepo.FindAll: %w", err)
+		return nil, fmt.Errorf("classRepo.FindAll: %w", err)
 	}
 	return classes, nil
 }

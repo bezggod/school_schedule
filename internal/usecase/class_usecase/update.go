@@ -2,6 +2,7 @@ package class_usecase
 
 import (
 	"fmt"
+
 	"school_schedule_2/internal/domain/model"
 )
 
@@ -10,17 +11,18 @@ type UpdateClassReq struct {
 	Grade string
 }
 
-func (u *UseCase) UpdateClass(req UpdateClassReq) (*model.Class, error) {
-	class, err := u.ClassRepo.GetByID(req.ID)
+func (u *UseCase) Update(req UpdateClassReq) (*model.Class, error) {
+	class, err := u.classRepo.GetByID(req.ID)
 	if err != nil {
-		return nil, fmt.Errorf("get class by id err: %w", err)
+		return nil, fmt.Errorf("classRepo.GetByID: %w", err)
 	}
 
 	class.Grade = req.Grade
 
-	update, err := u.ClassRepo.UpdateClass(class)
+	class, err = u.classRepo.Update(class)
 	if err != nil {
-		return nil, fmt.Errorf("update class: %w", err)
+		return nil, fmt.Errorf("classRepo.Update: %w", err)
 	}
-	return update, nil
+
+	return class, nil
 }

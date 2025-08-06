@@ -12,19 +12,20 @@ type UpdateTeacherReq struct {
 	Surname    string
 }
 
-func (ut *UseCase) UpdateTeacher(req UpdateTeacherReq) (*model.Teacher, error) {
-	teacher, err := ut.TeacherRepo.GetByID(req.ID)
+func (ut *UseCase) Update(req UpdateTeacherReq) (*model.Teacher, error) {
+	teacher, err := ut.teacherRepo.GetByID(req.ID)
 	if err != nil {
-		return nil, fmt.Errorf("find teacher by id: %w", err)
+		return nil, fmt.Errorf("teacherRepo.GetByID: %w", err)
 	}
 
-	teacher.Name = req.Name
 	teacher.Surname = req.Surname
+	teacher.Name = req.Name
 	teacher.Patronymic = req.Patronymic
 
-	update, err := ut.TeacherRepo.UpdateTeacher(teacher)
+	teacher, err = ut.teacherRepo.Update(teacher)
 	if err != nil {
-		return nil, fmt.Errorf("update teacher: %w", err)
+		return nil, fmt.Errorf("teacherRepo.Update: %w", err)
 	}
-	return update, nil
+
+	return teacher, nil
 }
