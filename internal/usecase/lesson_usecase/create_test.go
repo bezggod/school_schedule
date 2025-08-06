@@ -109,7 +109,7 @@ func TestUseCase_CreateLesson(t *testing.T) {
 			},
 		},
 		{
-			name: "error on get class by id",
+			name: "error on get classes by id",
 			args: args{
 				req: CreateLessonReq{
 					TeacherID: 1,

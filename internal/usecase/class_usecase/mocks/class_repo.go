@@ -23,7 +23,7 @@ func (_m *ClassRepo) EXPECT() *ClassRepo_Expecter {
 	return &ClassRepo_Expecter{mock: &_m.Mock}
 }
 
-// CreateClass provides a mock function with given fields: class
+// CreateClass provides a mock function with given fields: classes
 func (_m *ClassRepo) CreateClass(class *model.Class) (*model.Class, error) {
 	ret := _m.Called(class)
 
@@ -59,7 +59,7 @@ type ClassRepo_CreateClass_Call struct {
 }
 
 // CreateClass is a helper method to define mock.On call
-//   - class *model.Class
+//   - classes *model.Class
 func (_e *ClassRepo_Expecter) CreateClass(class interface{}) *ClassRepo_CreateClass_Call {
 	return &ClassRepo_CreateClass_Call{Call: _e.mock.On("CreateClass", class)}
 }
@@ -197,7 +197,7 @@ func (_c *ClassRepo_GetByID_Call) RunAndReturn(run func(int64) (*model.Class, er
 	return _c
 }
 
-// Update provides a mock function with given fields: class
+// Update provides a mock function with given fields: classes
 func (_m *ClassRepo) Update(class *model.Class) (*model.Class, error) {
 	ret := _m.Called(class)
 
@@ -233,7 +233,7 @@ type ClassRepo_Update_Call struct {
 }
 
 // Update is a helper method to define mock.On call
-//   - class *model.Class
+//   - classes *model.Class
 func (_e *ClassRepo_Expecter) Update(class interface{}) *ClassRepo_Update_Call {
 	return &ClassRepo_Update_Call{Call: _e.mock.On("Update", class)}
 }

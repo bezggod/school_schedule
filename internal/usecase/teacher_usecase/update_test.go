@@ -2,7 +2,6 @@ package teacher_usecase
 
 import (
 	"errors"
-	"fmt"
 	"github.com/stretchr/testify/assert"
 	"school_schedule_2/internal/domain/model"
 	"testing"
@@ -14,10 +13,6 @@ func TestUseCase_UpdateTeacher(t *testing.T) {
 
 	now := time.Now()
 	errTest := errors.New("update test error")
-
-	surname := "surname"
-	name := "name"
-	patronymic := "patronymic"
 
 	type args struct {
 		req UpdateTeacherReq
@@ -35,85 +30,78 @@ func TestUseCase_UpdateTeacher(t *testing.T) {
 			args: args{
 				req: UpdateTeacherReq{
 					ID:         1,
-					Surname:    &surname,
-					Name:       &name,
-					Patronymic: &patronymic,
+					Surname:    "Безгубенко",
+					Name:       "Данила",
+					Patronymic: "Борисович",
 				},
 			},
 			want: &model.Teacher{
 				ID:         1,
-				Surname:    surname,
-				Name:       name,
-				Patronymic: patronymic,
+				Surname:    "Безгубенко",
+				Name:       "Данила",
+				Patronymic: "Борисович",
 				CreatedAt:  now,
 				UpdatedAt:  now,
 			},
 			before: func(m mockService, args args) {
-				teacherOld := &model.Teacher{
+				teacher := &model.Teacher{
 					ID:         1,
-					Surname:    "Old",
-					Name:       "Old",
-					Patronymic: "Old",
+					Surname:    "Безгубенко",
+					Name:       "Данила",
+					Patronymic: "Борисович",
 					CreatedAt:  now,
 					UpdatedAt:  now,
 				}
-				teacherNew := &model.Teacher{
+
+				m.teacherRepo.EXPECT().GetByID(args.req.ID).Return(teacher, nil)
+
+				teacher.Surname = args.req.Surname
+				teacher.Name = args.req.Name
+				teacher.Patronymic = args.req.Patronymic
+
+				m.teacherRepo.EXPECT().Update(teacher).Return(teacher, nil)
+			},
+		},
+		{
+			name: "error on teacher get by id",
+			args: args{
+				req: UpdateTeacherReq{
 					ID:         1,
-					Surname:    *args.req.Surname,
-					Name:       *args.req.Name,
-					Patronymic: *args.req.Patronymic,
-					CreatedAt:  now,
-					UpdatedAt:  now,
-				}
-				m.teacherRepo.EXPECT().GetByID(args.req.ID).Return(teacherOld, nil)
-				m.teacherRepo.EXPECT().UpdateTeacher(teacherNew).Return(teacherNew, nil)
-			},
-		},
-		{
-			name: "invalid teacher id",
-			args: args{
-				req: UpdateTeacherReq{
-					ID: 0,
-				},
-			},
-			wantErr: fmt.Errorf("invalid teacher id"),
-		},
-		{
-			name: "teacherRepo.GetByID error",
-			args: args{
-				req: UpdateTeacherReq{
-					ID: 1,
+					Surname:    "Безгубенко",
+					Name:       "Данила",
+					Patronymic: "Борисович",
 				},
 			},
 			wantErr: errTest,
 			before: func(m mockService, args args) {
+
 				m.teacherRepo.EXPECT().GetByID(args.req.ID).Return(nil, errTest)
 			},
 		},
 		{
-			name: "teacherRepo.UpdateTeacher error",
+			name: "error on teacher update",
 			args: args{
 				req: UpdateTeacherReq{
-					ID:      1,
-					Surname: &surname,
+					ID:         1,
+					Surname:    "Безгубенко",
+					Name:       "Данила",
+					Patronymic: "Борисович",
 				},
 			},
 			wantErr: errTest,
 			before: func(m mockService, args args) {
-				teacherOld := &model.Teacher{
+				teacher := &model.Teacher{
 					ID:         1,
-					Surname:    "",
-					Name:       "",
-					Patronymic: "",
+					Surname:    "Безгубенко",
+					Name:       "Данила",
+					Patronymic: "Борисович",
+					CreatedAt:  now,
+					UpdatedAt:  now,
 				}
-				teacherNew := &model.Teacher{
-					ID:         1,
-					Surname:    *args.req.Surname,
-					Name:       "",
-					Patronymic: "",
-				}
-				m.teacherRepo.EXPECT().GetByID(args.req.ID).Return(teacherOld, nil)
-				m.teacherRepo.EXPECT().UpdateTeacher(teacherNew).Return(nil, errTest)
+
+				m.teacherRepo.EXPECT().GetByID(args.req.ID).Return(teacher, nil)
+
+				m.teacherRepo.EXPECT().Update(teacher).Return(nil, errTest)
 			},
 		},
 	}
@@ -127,14 +115,14 @@ func TestUseCase_UpdateTeacher(t *testing.T) {
 				tc.before(mocks, tc.args)
 			}
 
-			teachers, err := usecase.UpdateTeacher(tc.args.req)
+			teachers, err := usecase.Update(tc.args.req)
 			if tc.wantErr != nil {
 				a.Error(err)
 				a.Contains(err.Error(), tc.wantErr.Error())
 				return
 			}
-			a.NoError(err)
 			a.Equal(tc.want, teachers)
+			a.NoError(err)
 		})
 	}
 }

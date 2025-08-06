@@ -197,12 +197,12 @@ func (_c *TeacherRepo_GetByID_Call) RunAndReturn(run func(int64) (*model.Teacher
 	return _c
 }
 
-// UpdateTeacher provides a mock function with given fields: teacher
-func (_m *TeacherRepo) UpdateTeacher(teacher *model.Teacher) (*model.Teacher, error) {
+// Update provides a mock function with given fields: teacher
+func (_m *TeacherRepo) Update(teacher *model.Teacher) (*model.Teacher, error) {
 	ret := _m.Called(teacher)
 
 	if len(ret) == 0 {
-		panic("no return value specified for UpdateTeacher")
+		panic("no return value specified for Update")
 	}
 
 	var r0 *model.Teacher
@@ -227,15 +227,15 @@ func (_m *TeacherRepo) UpdateTeacher(teacher *model.Teacher) (*model.Teacher, er
 	return r0, r1
 }
 
-// TeacherRepo_UpdateTeacher_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'UpdateTeacher'
+// TeacherRepo_UpdateTeacher_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'Update'
 type TeacherRepo_UpdateTeacher_Call struct {
 	*mock.Call
 }
 
-// UpdateTeacher is a helper method to define mock.On call
+// Update is a helper method to define mock.On call
 //   - teacher *model.Teacher
-func (_e *TeacherRepo_Expecter) UpdateTeacher(teacher interface{}) *TeacherRepo_UpdateTeacher_Call {
-	return &TeacherRepo_UpdateTeacher_Call{Call: _e.mock.On("UpdateTeacher", teacher)}
+func (_e *TeacherRepo_Expecter) Update(teacher interface{}) *TeacherRepo_UpdateTeacher_Call {
+	return &TeacherRepo_UpdateTeacher_Call{Call: _e.mock.On("Update", teacher)}
 }
 
 func (_c *TeacherRepo_UpdateTeacher_Call) Run(run func(teacher *model.Teacher)) *TeacherRepo_UpdateTeacher_Call {

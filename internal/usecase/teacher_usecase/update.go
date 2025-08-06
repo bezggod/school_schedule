@@ -7,35 +7,25 @@ import (
 
 type UpdateTeacherReq struct {
 	ID         int64
-	Name       *string
-	Patronymic *string
-	Surname    *string
+	Name       string
+	Patronymic string
+	Surname    string
 }
 
-func (ut *UseCase) UpdateTeacher(req UpdateTeacherReq) (*model.Teacher, error) {
-	if req.ID == 0 {
-		return nil, fmt.Errorf("invalid teacher id")
-	}
-
+func (ut *UseCase) Update(req UpdateTeacherReq) (*model.Teacher, error) {
 	teacher, err := ut.teacherRepo.GetByID(req.ID)
 	if err != nil {
 		return nil, fmt.Errorf("teacherRepo.GetByID: %w", err)
 	}
 
-	if req.Name != nil {
-		teacher.Name = *req.Name
-	}
-	if req.Surname != nil {
-		teacher.Surname = *req.Surname
-	}
-	if req.Patronymic != nil {
-		teacher.Patronymic = *req.Patronymic
-	}
+	teacher.Surname = req.Surname
+	teacher.Name = req.Name
+	teacher.Patronymic = req.Patronymic
 
-	update, err := ut.teacherRepo.UpdateTeacher(teacher)
+	teacher, err = ut.teacherRepo.Update(teacher)
 	if err != nil {
-		return nil, fmt.Errorf("teacherRepo.UpdateTeacher: %w", err)
+		return nil, fmt.Errorf("teacherRepo.Update: %w", err)
 	}
 
-	return update, nil
+	return teacher, nil
 }

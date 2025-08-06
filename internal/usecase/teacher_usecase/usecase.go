@@ -16,7 +16,7 @@ type (
 		CreateTeacher(teacher *model.Teacher) (*model.Teacher, error)
 		FindAll(req dto.FindAllTeacherFilter) ([]*model.Teacher, error)
 		GetByID(id int64) (*model.Teacher, error)
-		UpdateTeacher(teacher *model.Teacher) (*model.Teacher, error)
+		Update(teacher *model.Teacher) (*model.Teacher, error)
 	}
 
 	timer interface {

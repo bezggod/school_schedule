@@ -11,7 +11,7 @@ type UpdateClassReq struct {
 	Grade string
 }
 
-func (u *UseCase) UpdateClass(req UpdateClassReq) (*model.Class, error) {
+func (u *UseCase) Update(req UpdateClassReq) (*model.Class, error) {
 	class, err := u.classRepo.GetByID(req.ID)
 	if err != nil {
 		return nil, fmt.Errorf("classRepo.GetByID: %w", err)
@@ -21,7 +21,7 @@ func (u *UseCase) UpdateClass(req UpdateClassReq) (*model.Class, error) {
 
 	class, err = u.classRepo.Update(class)
 	if err != nil {
-		return nil, fmt.Errorf("classRepo.UpdateClass: %w", err)
+		return nil, fmt.Errorf("classRepo.Update: %w", err)
 	}
 
 	return class, nil

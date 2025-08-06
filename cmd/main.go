@@ -2,11 +2,8 @@ package main
 
 import (
 	"fmt"
-	"school_schedule_2/internal/adapter/in_memory_storage/class_storage"
-	"school_schedule_2/internal/adapter/in_memory_storage/lesson_storage"
-	"school_schedule_2/internal/adapter/in_memory_storage/teacher_storage"
+	"school_schedule_2/cmd/service_provider"
 	"school_schedule_2/internal/domain/model/enums"
-	"school_schedule_2/internal/pkg"
 	"school_schedule_2/internal/usecase/class_usecase"
 	"school_schedule_2/internal/usecase/lesson_usecase"
 	"school_schedule_2/internal/usecase/teacher_usecase"
@@ -15,16 +12,9 @@ import (
 
 func main() {
 
-	teacherRepo := teacher_storage.NewRepo()
-	lessonRepo := lesson_storage.NewRepo()
-	classRepo := class_storage.NewRepo()
-	timer := pkg.NewTimer()
+	sp := service_provider.NewServiceProvider()
 
-	teacherUC := teacher_usecase.NewUseCase(teacherRepo, timer)
-	lessonUC := lesson_usecase.NewUseCase(lessonRepo, teacherRepo, classRepo)
-	classUC := class_usecase.NewUseCase(classRepo)
-
-	createdTeacher, err := teacherUC.CreateTeacher(teacher_usecase.CreateTeacherReq{
+	createdTeacher, err := sp.GetTeacherUseCase().CreateTeacher(teacher_usecase.CreateTeacherReq{
 		Surname:    "Безгубенко",
 		Name:       "Данила",
 		Patronymic: "Борисович",
@@ -34,14 +24,14 @@ func main() {
 		return
 	}
 
-	createdClass, err := classUC.CreateClass(class_usecase.CreateClassReq{
+	createdClass, err := sp.GetClassUseCase().CreateClass(class_usecase.CreateClassReq{
 		Grade: "9М",
 	})
 	if err != nil {
 		fmt.Println("classUC.CreateClass:", err)
 	}
 
-	createdLesson, err := lessonUC.CreateLesson(lesson_usecase.CreateLessonReq{
+	createdLesson, err := sp.GetLessonUseCase().CreateLesson(lesson_usecase.CreateLessonReq{
 		TeacherID: createdTeacher.ID,
 		ClassID:   createdClass.ID,
 		Office:    enums.Office10,
@@ -56,7 +46,7 @@ func main() {
 
 	fmt.Printf("Lesson create: %+v\n", createdLesson)
 
-	lessonsResp, err := lessonUC.FindAll(lesson_usecase.FindAllReq{
+	lessonsResp, err := sp.GetLessonUseCase().FindAll(lesson_usecase.FindAllReq{
 		TeacherID: 1,
 	})
 	if err != nil {
@@ -64,7 +54,7 @@ func main() {
 		return
 	}
 
-	classesResp, err := classUC.FindAll(class_usecase.FindAllReq{
+	classesResp, err := sp.GetClassUseCase().FindAll(class_usecase.FindAllReq{
 		ClassID: 1,
 	})
 	if err != nil {
@@ -72,7 +62,7 @@ func main() {
 		return
 	}
 
-	teacherReps, err := teacherUC.FindAll(teacher_usecase.FindAllReq{
+	teacherReps, err := sp.GetTeacherUseCase().FindAll(teacher_usecase.FindAllReq{
 		Surname: "Безгубенко",
 	})
 	if err != nil {
