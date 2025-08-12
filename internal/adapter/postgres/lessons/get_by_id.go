@@ -8,11 +8,11 @@ import (
 	"school_schedule_2/internal/domain/model"
 )
 
-func (r *Repo) FindLesson(id int64) (*model.Lesson, error) {
+func (r *Repo) GetByID(id int64) (*model.Lesson, error) {
 	var lesson model.Lesson
 
 	query := `
-		SELECT id, teacher_id, class_id, office, time_slot, subject, date, created_at,update_at 
+		SELECT id, teacher_id, class_id, office, time_slot, subject, date, created_at, updated_at 
 		FROM lessons 
 		WHERE id = $1`
 
@@ -32,7 +32,7 @@ func (r *Repo) FindLesson(id int64) (*model.Lesson, error) {
 		if errors.Is(err, pgx.ErrNoRows) {
 			return nil, NotFound
 		}
-		return nil, fmt.Errorf("FindLesson: %w", err)
+		return nil, fmt.Errorf("GetByIDLesson: %w", err)
 	}
 	return &lesson, nil
 }

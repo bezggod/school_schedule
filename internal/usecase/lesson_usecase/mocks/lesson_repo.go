@@ -24,12 +24,12 @@ func (_m *LessonRepo) EXPECT() *LessonRepo_Expecter {
 	return &LessonRepo_Expecter{mock: &_m.Mock}
 }
 
-// CreateLesson provides a mock function with given fields: lesson
-func (_m *LessonRepo) CreateLesson(lesson *model.Lesson) (*model.Lesson, error) {
+// Create provides a mock function with given fields: lesson
+func (_m *LessonRepo) Create(lesson *model.Lesson) (*model.Lesson, error) {
 	ret := _m.Called(lesson)
 
 	if len(ret) == 0 {
-		panic("no return value specified for CreateLesson")
+		panic("no return value specified for Create")
 	}
 
 	var r0 *model.Lesson
@@ -54,40 +54,86 @@ func (_m *LessonRepo) CreateLesson(lesson *model.Lesson) (*model.Lesson, error) 
 	return r0, r1
 }
 
-// LessonRepo_CreateLesson_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'CreateLesson'
-type LessonRepo_CreateLesson_Call struct {
+// LessonRepo_Create_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'Create'
+type LessonRepo_Create_Call struct {
 	*mock.Call
 }
 
-// CreateLesson is a helper method to define mock.On call
+// Create is a helper method to define mock.On call
 //   - lesson *model.Lesson
-func (_e *LessonRepo_Expecter) CreateLesson(lesson interface{}) *LessonRepo_CreateLesson_Call {
-	return &LessonRepo_CreateLesson_Call{Call: _e.mock.On("CreateLesson", lesson)}
+func (_e *LessonRepo_Expecter) Create(lesson interface{}) *LessonRepo_Create_Call {
+	return &LessonRepo_Create_Call{Call: _e.mock.On("Create", lesson)}
 }
 
-func (_c *LessonRepo_CreateLesson_Call) Run(run func(lesson *model.Lesson)) *LessonRepo_CreateLesson_Call {
+func (_c *LessonRepo_Create_Call) Run(run func(lesson *model.Lesson)) *LessonRepo_Create_Call {
 	_c.Call.Run(func(args mock.Arguments) {
 		run(args[0].(*model.Lesson))
 	})
 	return _c
 }
 
-func (_c *LessonRepo_CreateLesson_Call) Return(_a0 *model.Lesson, _a1 error) *LessonRepo_CreateLesson_Call {
+func (_c *LessonRepo_Create_Call) Return(_a0 *model.Lesson, _a1 error) *LessonRepo_Create_Call {
 	_c.Call.Return(_a0, _a1)
 	return _c
 }
 
-func (_c *LessonRepo_CreateLesson_Call) RunAndReturn(run func(*model.Lesson) (*model.Lesson, error)) *LessonRepo_CreateLesson_Call {
+func (_c *LessonRepo_Create_Call) RunAndReturn(run func(*model.Lesson) (*model.Lesson, error)) *LessonRepo_Create_Call {
 	_c.Call.Return(run)
 	return _c
 }
 
-// FindLesson provides a mock function with given fields: req
-func (_m *LessonRepo) FindLesson(req dto.FindAllLessonFilter) ([]*model.Lesson, error) {
+// Delete provides a mock function with given fields: id
+func (_m *LessonRepo) Delete(id int64) error {
+	ret := _m.Called(id)
+
+	if len(ret) == 0 {
+		panic("no return value specified for Delete")
+	}
+
+	var r0 error
+	if rf, ok := ret.Get(0).(func(int64) error); ok {
+		r0 = rf(id)
+	} else {
+		r0 = ret.Error(0)
+	}
+
+	return r0
+}
+
+// LessonRepo_Delete_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'Delete'
+type LessonRepo_Delete_Call struct {
+	*mock.Call
+}
+
+// Delete is a helper method to define mock.On call
+//   - id int64
+func (_e *LessonRepo_Expecter) Delete(id interface{}) *LessonRepo_Delete_Call {
+	return &LessonRepo_Delete_Call{Call: _e.mock.On("Delete", id)}
+}
+
+func (_c *LessonRepo_Delete_Call) Run(run func(id int64)) *LessonRepo_Delete_Call {
+	_c.Call.Run(func(args mock.Arguments) {
+		run(args[0].(int64))
+	})
+	return _c
+}
+
+func (_c *LessonRepo_Delete_Call) Return(_a0 error) *LessonRepo_Delete_Call {
+	_c.Call.Return(_a0)
+	return _c
+}
+
+func (_c *LessonRepo_Delete_Call) RunAndReturn(run func(int64) error) *LessonRepo_Delete_Call {
+	_c.Call.Return(run)
+	return _c
+}
+
+// FindAll provides a mock function with given fields: req
+func (_m *LessonRepo) FindAll(req dto.FindAllLessonFilter) ([]*model.Lesson, error) {
 	ret := _m.Called(req)
 
 	if len(ret) == 0 {
-		panic("no return value specified for FindLesson")
+		panic("no return value specified for FindAll")
 	}
 
 	var r0 []*model.Lesson
@@ -112,30 +158,30 @@ func (_m *LessonRepo) FindLesson(req dto.FindAllLessonFilter) ([]*model.Lesson, 
 	return r0, r1
 }
 
-// LessonRepo_FindLesson_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'FindLesson'
-type LessonRepo_FindLesson_Call struct {
+// LessonRepo_FindAll_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'FindAll'
+type LessonRepo_FindAll_Call struct {
 	*mock.Call
 }
 
-// FindLesson is a helper method to define mock.On call
+// FindAll is a helper method to define mock.On call
 //   - req dto.FindAllLessonFilter
-func (_e *LessonRepo_Expecter) FindLesson(req interface{}) *LessonRepo_FindLesson_Call {
-	return &LessonRepo_FindLesson_Call{Call: _e.mock.On("FindLesson", req)}
+func (_e *LessonRepo_Expecter) FindAll(req interface{}) *LessonRepo_FindAll_Call {
+	return &LessonRepo_FindAll_Call{Call: _e.mock.On("FindAll", req)}
 }
 
-func (_c *LessonRepo_FindLesson_Call) Run(run func(req dto.FindAllLessonFilter)) *LessonRepo_FindLesson_Call {
+func (_c *LessonRepo_FindAll_Call) Run(run func(req dto.FindAllLessonFilter)) *LessonRepo_FindAll_Call {
 	_c.Call.Run(func(args mock.Arguments) {
 		run(args[0].(dto.FindAllLessonFilter))
 	})
 	return _c
 }
 
-func (_c *LessonRepo_FindLesson_Call) Return(_a0 []*model.Lesson, _a1 error) *LessonRepo_FindLesson_Call {
+func (_c *LessonRepo_FindAll_Call) Return(_a0 []*model.Lesson, _a1 error) *LessonRepo_FindAll_Call {
 	_c.Call.Return(_a0, _a1)
 	return _c
 }
 
-func (_c *LessonRepo_FindLesson_Call) RunAndReturn(run func(dto.FindAllLessonFilter) ([]*model.Lesson, error)) *LessonRepo_FindLesson_Call {
+func (_c *LessonRepo_FindAll_Call) RunAndReturn(run func(dto.FindAllLessonFilter) ([]*model.Lesson, error)) *LessonRepo_FindAll_Call {
 	_c.Call.Return(run)
 	return _c
 }
@@ -241,6 +287,64 @@ func (_c *LessonRepo_LessonExists_Call) Return(_a0 bool) *LessonRepo_LessonExist
 }
 
 func (_c *LessonRepo_LessonExists_Call) RunAndReturn(run func(enums.OfficeName, enums.TimeSlotName) bool) *LessonRepo_LessonExists_Call {
+	_c.Call.Return(run)
+	return _c
+}
+
+// Update provides a mock function with given fields: lesson
+func (_m *LessonRepo) Update(lesson *model.Lesson) (*model.Lesson, error) {
+	ret := _m.Called(lesson)
+
+	if len(ret) == 0 {
+		panic("no return value specified for Update")
+	}
+
+	var r0 *model.Lesson
+	var r1 error
+	if rf, ok := ret.Get(0).(func(*model.Lesson) (*model.Lesson, error)); ok {
+		return rf(lesson)
+	}
+	if rf, ok := ret.Get(0).(func(*model.Lesson) *model.Lesson); ok {
+		r0 = rf(lesson)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*model.Lesson)
+		}
+	}
+
+	if rf, ok := ret.Get(1).(func(*model.Lesson) error); ok {
+		r1 = rf(lesson)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
+// LessonRepo_Update_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'Update'
+type LessonRepo_Update_Call struct {
+	*mock.Call
+}
+
+// Update is a helper method to define mock.On call
+//   - lesson *model.Lesson
+func (_e *LessonRepo_Expecter) Update(lesson interface{}) *LessonRepo_Update_Call {
+	return &LessonRepo_Update_Call{Call: _e.mock.On("Update", lesson)}
+}
+
+func (_c *LessonRepo_Update_Call) Run(run func(lesson *model.Lesson)) *LessonRepo_Update_Call {
+	_c.Call.Run(func(args mock.Arguments) {
+		run(args[0].(*model.Lesson))
+	})
+	return _c
+}
+
+func (_c *LessonRepo_Update_Call) Return(_a0 *model.Lesson, _a1 error) *LessonRepo_Update_Call {
+	_c.Call.Return(_a0, _a1)
+	return _c
+}
+
+func (_c *LessonRepo_Update_Call) RunAndReturn(run func(*model.Lesson) (*model.Lesson, error)) *LessonRepo_Update_Call {
 	_c.Call.Return(run)
 	return _c
 }

@@ -46,13 +46,13 @@ func TestUseCase_CreateClass(t *testing.T) {
 					UpdatedAt: now,
 				}
 
-				m.classRepo.EXPECT().CreateClass(class).Return(&model.Class{
+				m.classRepo.EXPECT().Create(class).Return(&model.Class{
 					Grade: "7",
 				}, nil)
 			},
 		},
 		{
-			name: "error on CreateClass",
+			name: "error on Create",
 			args: args{
 				req: CreateClassReq{
 					Grade: "7",
@@ -67,7 +67,7 @@ func TestUseCase_CreateClass(t *testing.T) {
 					CreatedAt: now,
 					UpdatedAt: now,
 				}
-				m.classRepo.EXPECT().CreateClass(class).Return(nil, errTest)
+				m.classRepo.EXPECT().Create(class).Return(nil, errTest)
 			},
 		},
 	}

@@ -6,7 +6,7 @@ import (
 	"school_schedule_2/internal/domain/model"
 )
 
-func (r *Repo) CreateClass(class *model.Class) (*model.Class, error) {
+func (r *Repo) Create(class *model.Class) (*model.Class, error) {
 	err := r.cluster.Conn.QueryRow(context.Background(),
 		"INSERT INTO classes (grade, created_at, updated_at) VALUES ($1, $2, $3) "+
 			"RETURNING id",

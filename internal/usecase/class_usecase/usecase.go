@@ -8,16 +8,17 @@ import (
 )
 
 type UseCase struct {
-	classRepo classRepo
+	classRepo ClassRepo
 	timer     timer
 }
 
 type (
-	classRepo interface {
-		CreateClass(class *model.Class) (*model.Class, error)
+	ClassRepo interface {
+		Create(class *model.Class) (*model.Class, error)
 		FindAll(req dto.FindAllClassesFilter) ([]*model.Class, error)
 		GetByID(id int64) (*model.Class, error)
 		Update(class *model.Class) (*model.Class, error)
+		Delete(id int64) error
 	}
 
 	timer interface {
@@ -25,7 +26,7 @@ type (
 	}
 )
 
-func NewUseCase(repo classRepo, timer timer) *UseCase {
+func NewUseCase(repo ClassRepo, timer timer) *UseCase {
 	return &UseCase{
 		classRepo: repo,
 		timer:     timer,

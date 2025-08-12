@@ -16,10 +16,12 @@ type UseCase struct {
 
 type (
 	lessonRepo interface {
-		CreateLesson(lesson *model.Lesson) (*model.Lesson, error)
+		Create(lesson *model.Lesson) (*model.Lesson, error)
 		LessonExists(name enums.OfficeName, slot enums.TimeSlotName) bool
-		FindLesson(req dto.FindAllLessonFilter) ([]*model.Lesson, error)
+		FindAll(req dto.FindAllLessonFilter) ([]*model.Lesson, error)
 		GetByID(id int64) (*model.Lesson, error)
+		Delete(id int64) error
+		Update(lesson *model.Lesson) (*model.Lesson, error)
 	}
 
 	teacherRepo interface {

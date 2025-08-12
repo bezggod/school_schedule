@@ -6,7 +6,7 @@ import (
 	"school_schedule_2/internal/domain/model"
 )
 
-func (r *Repo) CreateLesson(lesson *model.Lesson) (*model.Lesson, error) {
+func (r *Repo) Create(lesson *model.Lesson) (*model.Lesson, error) {
 	err := r.cluster.Conn.QueryRow(context.Background(),
 		"INSERT INTO lessons (teacher_id, class_id, office, time_slot,subject, date, created_at,updated_at) values ($1,$2,$3,$4,$5,$6,$7,$8)"+
 			"RETURNING id",

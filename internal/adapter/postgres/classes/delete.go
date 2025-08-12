@@ -5,7 +5,7 @@ import (
 	"fmt"
 )
 
-func (r *Repo) DeleteClass(id int) error {
+func (r *Repo) Delete(id int64) error {
 	_, err := r.cluster.Conn.Exec(context.Background(),
 		`DELETE FROM classes WHERE id = $1`, id)
 	if err != nil {
