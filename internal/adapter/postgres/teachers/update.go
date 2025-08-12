@@ -6,7 +6,7 @@ import (
 	"school_schedule_2/internal/domain/model"
 )
 
-func (r *Repo) UpdateTeacher(teacher *model.Teacher) (*model.Teacher, error) {
+func (r *Repo) Update(teacher *model.Teacher) (*model.Teacher, error) {
 	query := `
 		UPDATE teachers SET surname =$1,name=$2,patronymic=$3, updated_at = $4 
         WHERE id = $5`

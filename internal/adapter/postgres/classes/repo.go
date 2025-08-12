@@ -5,7 +5,7 @@ import (
 	"school_schedule_2/internal/config"
 )
 
-var NotFoundError = errors.New("classes not found")
+var NotFound = errors.New("classes not found")
 
 type Repo struct {
 	cluster *config.Cluster

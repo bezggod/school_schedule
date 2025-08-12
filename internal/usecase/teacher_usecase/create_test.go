@@ -50,7 +50,7 @@ func TestUseCase_CreateTeacher(t *testing.T) {
 					UpdatedAt:  now,
 				}
 
-				m.teacherRepo.EXPECT().CreateTeacher(teacher).Return(&model.Teacher{
+				m.teacherRepo.EXPECT().Create(teacher).Return(&model.Teacher{
 					Surname:    "Безгубенко",
 					Name:       "Данила",
 					Patronymic: "Борисович",
@@ -58,7 +58,7 @@ func TestUseCase_CreateTeacher(t *testing.T) {
 			},
 		},
 		{
-			name: "error on CreateTeacher",
+			name: "error on Create",
 			args: args{
 				req: CreateTeacherReq{
 					Surname:    "Безгубенко",
@@ -77,7 +77,7 @@ func TestUseCase_CreateTeacher(t *testing.T) {
 					CreatedAt:  now,
 					UpdatedAt:  now,
 				}
-				m.teacherRepo.EXPECT().CreateTeacher(teacher).Return(nil, errTest)
+				m.teacherRepo.EXPECT().Create(teacher).Return(nil, errTest)
 			},
 		},
 	}
