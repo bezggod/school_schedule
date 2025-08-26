@@ -69,7 +69,7 @@ func TestUseCase_FindAll(t *testing.T) {
 						UpdatedAt: now,
 					},
 				}
-				m.lessonRepo.EXPECT().FindLesson(dto.FindAllLessonFilter{
+				m.lessonRepo.EXPECT().FindAll(dto.FindAllLessonFilter{
 					TeacherID:  args.req.TeacherID,
 					ClassID:    args.req.ClassID,
 					OfficeName: args.req.Office,
@@ -94,7 +94,7 @@ func TestUseCase_FindAll(t *testing.T) {
 			},
 			wantErr: errTest,
 			before: func(m mockService, args args) {
-				m.lessonRepo.EXPECT().FindLesson(dto.FindAllLessonFilter{
+				m.lessonRepo.EXPECT().FindAll(dto.FindAllLessonFilter{
 					TeacherID:  args.req.TeacherID,
 					ClassID:    args.req.ClassID,
 					OfficeName: args.req.Office,
@@ -113,7 +113,7 @@ func TestUseCase_FindAll(t *testing.T) {
 			},
 			wantErr: errTest,
 			before: func(m mockService, args args) {
-				m.lessonRepo.EXPECT().FindLesson(dto.FindAllLessonFilter{
+				m.lessonRepo.EXPECT().FindAll(dto.FindAllLessonFilter{
 					TeacherID:  args.req.TeacherID,
 					ClassID:    args.req.ClassID,
 					OfficeName: args.req.Office,
@@ -145,7 +145,7 @@ func TestUseCase_FindAll(t *testing.T) {
 			},
 			wantErr: fmt.Errorf("teacherRepo.GetByID: %w with id %d", errEmptyTeacher, 1),
 			before: func(m mockService, args args) {
-				m.lessonRepo.EXPECT().FindLesson(dto.FindAllLessonFilter{
+				m.lessonRepo.EXPECT().FindAll(dto.FindAllLessonFilter{
 					TeacherID:  args.req.TeacherID,
 					ClassID:    args.req.ClassID,
 					OfficeName: args.req.Office,
@@ -177,7 +177,7 @@ func TestUseCase_FindAll(t *testing.T) {
 			},
 			wantErr: errTest,
 			before: func(m mockService, args args) {
-				m.lessonRepo.EXPECT().FindLesson(dto.FindAllLessonFilter{
+				m.lessonRepo.EXPECT().FindAll(dto.FindAllLessonFilter{
 					TeacherID:  args.req.TeacherID,
 					ClassID:    args.req.ClassID,
 					OfficeName: args.req.Office,

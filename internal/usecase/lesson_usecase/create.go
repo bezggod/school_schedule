@@ -49,9 +49,9 @@ func (uc *UseCase) CreateLesson(req CreateLessonReq) (*model.Lesson, error) {
 		req.Date,
 		now)
 
-	createdLesson, err := uc.lessonRepo.CreateLesson(lesson)
+	createdLesson, err := uc.lessonRepo.Create(lesson)
 	if err != nil {
-		return nil, fmt.Errorf("CreateLesson: %w", err)
+		return nil, fmt.Errorf("Create: %w", err)
 	}
 
 	return createdLesson, nil

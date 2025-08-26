@@ -8,7 +8,7 @@ import (
 	"school_schedule_2/internal/domain/model"
 )
 
-func (r *Repo) FindTeacher(id int64) (*model.Teacher, error) {
+func (r *Repo) GetByID(id int64) (*model.Teacher, error) {
 	var teacher model.Teacher
 
 	query := `
@@ -27,9 +27,9 @@ func (r *Repo) FindTeacher(id int64) (*model.Teacher, error) {
 		)
 	if err != nil {
 		if errors.Is(err, pgx.ErrNoRows) {
-			return nil, fmt.Errorf("no lesson found with id %d", id)
+			return nil, NotFound
 		}
-		return nil, fmt.Errorf("FindTeacher: %w", err)
+		return nil, fmt.Errorf("GetByID.Teacher: %w", err)
 	}
 	return &teacher, nil
 }

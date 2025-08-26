@@ -35,7 +35,7 @@ type Lesson struct {
 }
 
 func (uc *UseCase) FindAll(req FindAllReq) (*FindAllResponse, error) {
-	lessons, err := uc.lessonRepo.FindLesson(dto.FindAllLessonFilter{
+	lessons, err := uc.lessonRepo.FindAll(dto.FindAllLessonFilter{
 		TeacherID:  req.TeacherID,
 		OfficeName: req.Office,
 		TimeSlot:   req.TimeSlot,

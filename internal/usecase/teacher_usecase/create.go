@@ -16,9 +16,9 @@ func (ut *UseCase) CreateTeacher(req CreateTeacherReq) (*model.Teacher, error) {
 	now := ut.timer.NowMoscow()
 	teacher := model.NewTeacher(req.Surname, req.Name, req.Patronymic, now)
 
-	createdTeacher, err := ut.teacherRepo.CreateTeacher(teacher)
+	createdTeacher, err := ut.teacherRepo.Create(teacher)
 	if err != nil {
-		return nil, fmt.Errorf("ut.teacherRepo.CreateTeacher: %w", err)
+		return nil, fmt.Errorf("ut.teacherRepo.Create: %w", err)
 	}
 
 	return createdTeacher, nil

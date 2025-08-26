@@ -8,11 +8,11 @@ import (
 	"school_schedule_2/internal/domain/model"
 )
 
-func (r *Repo) FindClass(id int64) (*model.Class, error) {
+func (r *Repo) GetByID(id int64) (*model.Class, error) {
 	var class model.Class
 
 	query := `
-		SELECT id, grade ,created_at, updated_at 
+		SELECT id, grade, created_at, updated_at 
 		FROM classes 
 		WHERE id = $1`
 
@@ -23,13 +23,12 @@ func (r *Repo) FindClass(id int64) (*model.Class, error) {
 			&class.CreatedAt,
 			&class.UpdatedAt,
 		)
-
 	if err != nil {
 		if errors.Is(err, pgx.ErrNoRows) {
-			return nil, fmt.Errorf("no class found with id %d", id)
+			return nil, fmt.Errorf("class not found")
 		}
-		return nil, fmt.Errorf("FindClass: %w", err)
+		return nil, fmt.Errorf("GetByID: %w", err)
 	}
-	return &class, nil
 
+	return &class, nil
 }

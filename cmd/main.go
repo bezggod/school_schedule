@@ -20,7 +20,7 @@ func main() {
 		Patronymic: "Борисович",
 	})
 	if err != nil {
-		fmt.Println("teacherUC.CreateTeacher:", err)
+		fmt.Println("teacherUC.Create:", err)
 		return
 	}
 
@@ -28,7 +28,7 @@ func main() {
 		Grade: "9М",
 	})
 	if err != nil {
-		fmt.Println("classUC.CreateClass:", err)
+		fmt.Println("classUC.Create:", err)
 	}
 
 	createdLesson, err := sp.GetLessonUseCase().CreateLesson(lesson_usecase.CreateLessonReq{
@@ -40,7 +40,7 @@ func main() {
 		Date:      time.Now(),
 	})
 	if err != nil {
-		fmt.Println("lessonUC.CreateLesson:", err)
+		fmt.Println("lessonUC.Create:", err)
 		return
 	}
 

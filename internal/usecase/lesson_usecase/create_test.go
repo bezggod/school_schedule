@@ -71,7 +71,7 @@ func TestUseCase_CreateLesson(t *testing.T) {
 					UpdatedAt: now,
 				}
 
-				m.lessonRepo.EXPECT().CreateLesson(lesson).Return(lesson, nil)
+				m.lessonRepo.EXPECT().Create(lesson).Return(lesson, nil)
 			},
 		},
 		{
@@ -105,7 +105,7 @@ func TestUseCase_CreateLesson(t *testing.T) {
 					UpdatedAt: now,
 				}
 
-				m.lessonRepo.EXPECT().CreateLesson(lesson).Return(nil, errTest)
+				m.lessonRepo.EXPECT().Create(lesson).Return(nil, errTest)
 			},
 		},
 		{

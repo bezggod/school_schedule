@@ -1,9 +1,9 @@
 package service_provider
 
 import (
-	"school_schedule_2/internal/adapter/in_memory_storage/class_storage"
-	"school_schedule_2/internal/adapter/in_memory_storage/lesson_storage"
-	"school_schedule_2/internal/adapter/in_memory_storage/teacher_storage"
+	"school_schedule_2/internal/adapter/postgres/classes"
+	"school_schedule_2/internal/adapter/postgres/lessons"
+	"school_schedule_2/internal/adapter/postgres/teachers"
 	"school_schedule_2/internal/config"
 	"school_schedule_2/internal/usecase/class_usecase"
 	"school_schedule_2/internal/usecase/lesson_usecase"
@@ -12,9 +12,9 @@ import (
 
 type ServiceProvider struct {
 	//repo
-	classRepo   *class_storage.Repo
-	teacherRepo *teacher_storage.Repo
-	lessonRepo  *lesson_storage.Repo
+	classRepo   *classes.Repo
+	teacherRepo *teachers.Repo
+	lessonRepo  *lessons.Repo
 
 	// usecase
 	classUseCase   *class_usecase.UseCase

@@ -13,10 +13,11 @@ type UseCase struct {
 
 type (
 	teacherRepo interface {
-		CreateTeacher(teacher *model.Teacher) (*model.Teacher, error)
+		Create(teacher *model.Teacher) (*model.Teacher, error)
 		FindAll(req dto.FindAllTeacherFilter) ([]*model.Teacher, error)
 		GetByID(id int64) (*model.Teacher, error)
 		Update(teacher *model.Teacher) (*model.Teacher, error)
+		Delete(id int64) error
 	}
 
 	timer interface {
