@@ -9,7 +9,7 @@ type CreateClassReq struct {
 	Grade string
 }
 
-func (u *UseCase) CreateClass(req CreateClassReq) (*model.Class, error) {
+func (u *UseCase) Create(req CreateClassReq) (*model.Class, error) {
 
 	now := u.timer.NowMoscow()
 	class := model.NewClass(req.Grade, now)

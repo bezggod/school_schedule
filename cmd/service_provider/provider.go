@@ -5,6 +5,9 @@ import (
 	"school_schedule_2/internal/adapter/postgres/lessons"
 	"school_schedule_2/internal/adapter/postgres/teachers"
 	"school_schedule_2/internal/config"
+	"school_schedule_2/internal/controller/class_controller"
+	"school_schedule_2/internal/controller/lesson_controller"
+	"school_schedule_2/internal/controller/teacher_controller"
 	"school_schedule_2/internal/usecase/class_usecase"
 	"school_schedule_2/internal/usecase/lesson_usecase"
 	"school_schedule_2/internal/usecase/teacher_usecase"
@@ -20,6 +23,10 @@ type ServiceProvider struct {
 	classUseCase   *class_usecase.UseCase
 	teacherUseCase *teacher_usecase.UseCase
 	lessonUseCase  *lesson_usecase.UseCase
+
+	classController   *class_controller.Controller
+	lessonController  *lesson_controller.Controller
+	teacherController *teacher_controller.Controller
 
 	dbCluster *config.Cluster
 }

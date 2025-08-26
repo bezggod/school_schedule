@@ -20,7 +20,7 @@ type CreateLessonReq struct {
 	Date      time.Time
 }
 
-func (uc *UseCase) CreateLesson(req CreateLessonReq) (*model.Lesson, error) {
+func (uc *UseCase) Create(req CreateLessonReq) (*model.Lesson, error) {
 	lessonExist := uc.lessonRepo.LessonExists(req.Office, req.TimeSlot)
 
 	if lessonExist {

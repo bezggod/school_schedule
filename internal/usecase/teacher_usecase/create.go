@@ -11,7 +11,7 @@ type CreateTeacherReq struct {
 	Patronymic string
 }
 
-func (ut *UseCase) CreateTeacher(req CreateTeacherReq) (*model.Teacher, error) {
+func (ut *UseCase) Create(req CreateTeacherReq) (*model.Teacher, error) {
 
 	now := ut.timer.NowMoscow()
 	teacher := model.NewTeacher(req.Surname, req.Name, req.Patronymic, now)
