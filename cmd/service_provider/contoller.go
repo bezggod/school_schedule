@@ -24,3 +24,4 @@ func (s *ServiceProvider) GetTeacherController() *teacher_controller.Controller 
 		s.teacherController = teacher_controller.NewController(s.GetTeacherUseCase())
 	}
 	return s.teacherController
+}

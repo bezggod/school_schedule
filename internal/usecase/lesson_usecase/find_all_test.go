@@ -21,7 +21,7 @@ func TestUseCase_FindAll(t *testing.T) {
 	class := &model.Class{ID: 1}
 
 	type args struct {
-		req FindAllReq
+		req FindAllLessonReq
 	}
 
 	tests := []struct {
@@ -34,7 +34,7 @@ func TestUseCase_FindAll(t *testing.T) {
 		{
 			name: "success",
 			args: args{
-				req: FindAllReq{
+				req: FindAllLessonReq{
 					TeacherID: 1,
 					ClassID:   1,
 					Office:    enums.Office10,
@@ -85,7 +85,7 @@ func TestUseCase_FindAll(t *testing.T) {
 		{
 			name: "lessonRepo.FindAll error",
 			args: args{
-				req: FindAllReq{
+				req: FindAllLessonReq{
 					TeacherID: 1,
 					ClassID:   1,
 					Office:    enums.Office10,
@@ -106,7 +106,7 @@ func TestUseCase_FindAll(t *testing.T) {
 		{
 			name: "teachererRepo.GetByID error",
 			args: args{
-				req: FindAllReq{
+				req: FindAllLessonReq{
 					TeacherID: 1,
 					ClassID:   2,
 				},
@@ -138,7 +138,7 @@ func TestUseCase_FindAll(t *testing.T) {
 		{
 			name: "teacherRepo.GetByID returrns nil teacher",
 			args: args{
-				req: FindAllReq{
+				req: FindAllLessonReq{
 					TeacherID: 1,
 					ClassID:   2,
 				},
@@ -170,7 +170,7 @@ func TestUseCase_FindAll(t *testing.T) {
 		{
 			name: "classRepo.GetByID error",
 			args: args{
-				req: FindAllReq{
+				req: FindAllLessonReq{
 					TeacherID: 1,
 					ClassID:   2,
 				},

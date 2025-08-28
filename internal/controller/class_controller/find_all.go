@@ -8,7 +8,7 @@ import (
 )
 
 type findAllClassReq struct {
-	ClassID int64 `json:"class_id"`
+	Grade string `json:"grade"`
 }
 
 func (c *Controller) FindAll(w http.ResponseWriter, r *http.Request) {
@@ -31,7 +31,7 @@ func (c *Controller) FindAll(w http.ResponseWriter, r *http.Request) {
 	}
 
 	class, err := c.classUseCase.FindAll(class_usecase.FindAllClassReq{
-		ClassID: req.ClassID,
+		Grade: req.Grade,
 	})
 	if err != nil {
 		controller.InternalServerErrorRespond(w, err)
@@ -45,7 +45,7 @@ func (c *Controller) FindAll(w http.ResponseWriter, r *http.Request) {
 
 func validateFindAllRequest(req findAllClassReq) *controller.ValidationError {
 	if req.Grade == "" {
-		return controller.NewValidationError("name is required", "name")
+		return controller.NewValidationError("grade is required", "grade")
 	}
 
 	return nil

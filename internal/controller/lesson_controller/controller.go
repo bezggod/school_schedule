@@ -13,6 +13,7 @@ type (
 	lessonUseCase interface {
 		Create(req lesson_usecase.CreateLessonReq) (*model.Lesson, error)
 		Update(req lesson_usecase.UpdateLessonReq) (*model.Lesson, error)
+		FindAll(req lesson_usecase.FindAllLessonReq) ([]*model.Lesson, error)
 	}
 )
 

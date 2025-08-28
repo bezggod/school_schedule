@@ -16,7 +16,7 @@ func TestUseCase_FindAll(t *testing.T) {
 	errTest := errors.New("test error")
 
 	type args struct {
-		req FindAllReq
+		req FindAllTeacherReq
 	}
 
 	tests := []struct {
@@ -29,7 +29,7 @@ func TestUseCase_FindAll(t *testing.T) {
 		{
 			name: "success",
 			args: args{
-				req: FindAllReq{
+				req: FindAllTeacherReq{
 					Surname: "Безгубенко",
 				},
 			},
@@ -62,7 +62,7 @@ func TestUseCase_FindAll(t *testing.T) {
 		{
 			name: "teacherRepo.FindAll err",
 			args: args{
-				req: FindAllReq{
+				req: FindAllTeacherReq{
 					Surname:    "",
 					Name:       "",
 					Patronymic: "",

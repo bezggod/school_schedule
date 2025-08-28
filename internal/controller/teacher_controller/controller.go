@@ -13,6 +13,7 @@ type (
 	teacherUseCase interface {
 		Create(req teacher_usecase.CreateTeacherReq) (*model.Teacher, error)
 		Update(req teacher_usecase.UpdateTeacherReq) (*model.Teacher, error)
+		FindAll(req teacher_usecase.FindAllTeacherReq) ([]*model.Teacher, error)
 	}
 )
 

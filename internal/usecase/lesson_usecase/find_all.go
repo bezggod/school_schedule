@@ -11,7 +11,7 @@ import (
 
 var errEmptyTeacher = errors.New("empty teacher name")
 
-type FindAllReq struct {
+type FindAllLessonReq struct {
 	TeacherID int64
 	ClassID   int64
 	Office    enums.OfficeName
@@ -34,7 +34,7 @@ type Lesson struct {
 	UpdatedAt time.Time
 }
 
-func (uc *UseCase) FindAll(req FindAllReq) (*FindAllResponse, error) {
+func (uc *UseCase) FindAll(req FindAllLessonReq) ([]*model.Lesson, error) {
 	lessons, err := uc.lessonRepo.FindAll(dto.FindAllLessonFilter{
 		TeacherID:  req.TeacherID,
 		OfficeName: req.Office,
@@ -45,12 +45,11 @@ func (uc *UseCase) FindAll(req FindAllReq) (*FindAllResponse, error) {
 		return nil, fmt.Errorf("lessonRepo.FindAll: %w", err)
 	}
 
-	resultLessons := make([]*Lesson, 0, len(lessons))
+	resultLessons := make([]*model.Lesson, 0, len(lessons))
 	for _, lesson := range lessons {
 
 		var (
 			teacher *model.Teacher
-			class   *model.Class
 		)
 
 		teacher, err = uc.teacherRepo.GetByID(lesson.TeacherID)
@@ -61,15 +60,15 @@ func (uc *UseCase) FindAll(req FindAllReq) (*FindAllResponse, error) {
 			return nil, fmt.Errorf("teacherRepo.GetByID: %w with id %d", errEmptyTeacher, lesson.TeacherID)
 		}
 
-		class, err = uc.classRepo.GetByID(lesson.ClassID)
+		_, err = uc.classRepo.GetByID(lesson.ClassID)
 		if err != nil {
 			return nil, fmt.Errorf("classRepo.GetByID: %w", err)
 		}
 
-		resultLessons = append(resultLessons, &Lesson{ //Отражение данных на фронте
+		resultLessons = append(resultLessons, &model.Lesson{ //Отражение данных на фронте
 			ID:        lesson.ID,
-			Teacher:   teacher,
-			Class:     class,
+			TeacherID: lesson.TeacherID,
+			ClassID:   lesson.ClassID,
 			Office:    lesson.Office,
 			TimeSlot:  lesson.TimeSlot,
 			Subject:   lesson.Subject,
@@ -79,5 +78,5 @@ func (uc *UseCase) FindAll(req FindAllReq) (*FindAllResponse, error) {
 		})
 	}
 
-	return &FindAllResponse{Lessons: resultLessons}, nil
+	return resultLessons, nil
 }
