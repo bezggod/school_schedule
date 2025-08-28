@@ -91,7 +91,7 @@ func TestUseCase_CreateTeacher(t *testing.T) {
 				tc.before(mocks, tc.args)
 			}
 
-			teacher, err := usecase.CreateTeacher(tc.args.req)
+			teacher, err := usecase.Create(tc.args.req)
 			if tc.wantErr {
 				a.Error(err)
 

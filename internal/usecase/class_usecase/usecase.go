@@ -18,7 +18,6 @@ type (
 		FindAll(req dto.FindAllClassesFilter) ([]*model.Class, error)
 		GetByID(id int64) (*model.Class, error)
 		Update(class *model.Class) (*model.Class, error)
-		Delete(id int64) error
 	}
 
 	timer interface {

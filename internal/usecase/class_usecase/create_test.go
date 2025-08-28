@@ -82,7 +82,7 @@ func TestUseCase_CreateClass(t *testing.T) {
 				tc.before(mocks, tc.args)
 			}
 
-			class, err := usecase.CreateClass(tc.args.req)
+			class, err := usecase.Create(tc.args.req)
 			if tc.wantErr {
 				a.Error(err)
 

@@ -176,7 +176,7 @@ func TestUseCase_CreateLesson(t *testing.T) {
 				tc.before(mocks, tc.args)
 			}
 
-			lesson, err := usecase.CreateLesson(tc.args.req)
+			lesson, err := usecase.Create(tc.args.req)
 			a.ErrorIs(err, tc.wantErr)
 
 			a.Equal(tc.want, lesson)

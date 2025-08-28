@@ -6,13 +6,13 @@ import (
 	"school_schedule_2/internal/domain/model"
 )
 
-type FindAllReq struct {
+type FindAllTeacherReq struct {
 	Surname    string
 	Name       string
 	Patronymic string
 }
 
-func (ut *UseCase) FindAll(req FindAllReq) ([]*model.Teacher, error) {
+func (ut *UseCase) FindAll(req FindAllTeacherReq) ([]*model.Teacher, error) {
 	teachers, err := ut.teacherRepo.FindAll(dto.FindAllTeacherFilter{
 		Surname: req.Surname,
 		Name:    req.Name,

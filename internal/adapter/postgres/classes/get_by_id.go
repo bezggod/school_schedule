@@ -25,7 +25,7 @@ func (r *Repo) GetByID(id int64) (*model.Class, error) {
 		)
 	if err != nil {
 		if errors.Is(err, pgx.ErrNoRows) {
-			return nil, fmt.Errorf("class not found")
+			return nil, NotFound
 		}
 		return nil, fmt.Errorf("GetByID: %w", err)
 	}
